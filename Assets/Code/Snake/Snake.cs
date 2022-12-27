@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Snake : MonoBehaviour
 {
@@ -17,14 +18,24 @@ public class Snake : MonoBehaviour
         StartMoving();
     }
 
-    public void TurnLeft()
+    public void TurnLeft(InputAction.CallbackContext context = default)
     {
-        Direction = Quaternion.AngleAxis(90, Vector3.up) * Direction;
+        if (!context.started)
+        {
+            return;
+        }
+
+        Direction = Quaternion.AngleAxis(-90, Vector3.up) * Direction;
     }
 
-    public void TurnRight()
+    public void TurnRight(InputAction.CallbackContext context = default)
     {
-        Direction = Quaternion.AngleAxis(-90, Vector3.up) * Direction;
+        if(!context.started)
+        {
+            return;
+        }
+
+        Direction = Quaternion.AngleAxis(90, Vector3.up) * Direction;
     }
 
     public void StartMoving()
@@ -55,7 +66,7 @@ public class Snake : MonoBehaviour
     {
         while(IsMoving)
         {
-            transform.localPosition += Vector3.forward;
+            transform.localPosition += Direction;
             SnakeBodyMover.UpdateBodyTransforms(this);
             yield return new WaitForSeconds(1f/Speed);
         }
