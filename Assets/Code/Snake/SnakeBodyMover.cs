@@ -16,12 +16,19 @@ public class SnakeBodyMover : MonoBehaviour
 
     private Queue<TransformCopyValues> _bodyTransforms;
     private List<GameObject> _bodyParts;
+    private TransformCopyValues _defaultTransform;
     private IEnumerator _deathAnimationRoutine;
 
     void Awake()
     {
         _bodyTransforms = new();
         _bodyParts = new();
+        _defaultTransform = new()
+        {
+            localPosition = Vector3.up * 1327,
+            localRotation = Quaternion.identity,
+            localScale = Vector3.zero
+        };
     }
 
     public void UpdateBodyTransforms(Snake snake)
@@ -42,7 +49,12 @@ public class SnakeBodyMover : MonoBehaviour
         for(int i=0; i<_bodyParts.Count; i++)
         {
             var bodyPartTransform = _bodyParts[i].transform;
-            var refIndex = Mathf.Min(i + 1, _bodyTransforms.Count - 1);
+            var refIndex = i;
+            if(refIndex > _bodyTransforms.Count - 2)
+            {
+                CopyTransform(in _defaultTransform, ref bodyPartTransform);
+                continue;
+            }
             var refTransform = bodyTransforms[refIndex];
             CopyTransform(in refTransform, ref bodyPartTransform);
         }
@@ -89,6 +101,8 @@ public class SnakeBodyMover : MonoBehaviour
         for(int i=0; i<diff; i++)
         {
             var newBody = Instantiate(BodyPrefab, snake.transform.parent);
+            var newTransform = newBody.transform;
+            CopyTransform(_defaultTransform, ref newTransform);
             newBody.name = $"Body{_bodyParts.Count}";
             _bodyParts.Add(newBody);
         }

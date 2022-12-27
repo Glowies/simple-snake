@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wall : MonoBehaviour
+public class SnakeHazard : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
@@ -11,6 +11,7 @@ public class Wall : MonoBehaviour
         {
             return;
         }
+        print($"hello from {gameObject.name}");
 
         snake.Kill();
     }
