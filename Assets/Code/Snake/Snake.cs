@@ -15,7 +15,7 @@ public class Snake : MonoBehaviour
 
     private void Start()
     {
-        StartMoving();
+        //StartMoving();
     }
 
     public void TurnLeft(InputAction.CallbackContext context = default)
@@ -70,5 +70,10 @@ public class Snake : MonoBehaviour
             SnakeBodyMover.UpdateBodyTransforms(this);
             yield return new WaitForSeconds(1f/Speed);
         }
+    }
+
+    public void Kill()
+    {
+        StopMoving();
     }
 }
