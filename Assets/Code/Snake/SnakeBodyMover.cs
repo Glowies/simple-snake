@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class SnakeBodyMover : MonoBehaviour
 
     private Queue<TransformCopyValues> _bodyTransforms;
     private List<GameObject> _bodyParts;
+    private IEnumerator _deathAnimationRoutine;
 
     void Awake()
     {
@@ -89,6 +91,54 @@ public class SnakeBodyMover : MonoBehaviour
             var newBody = Instantiate(BodyPrefab, snake.transform.parent);
             newBody.name = $"Body{_bodyParts.Count}";
             _bodyParts.Add(newBody);
+        }
+    }
+
+    public void PlayDeathAnimation(float blinkFrequency)
+    {
+        if (_deathAnimationRoutine != null)
+        {
+            return;
+        }
+
+        _deathAnimationRoutine = DeathAnimation(blinkFrequency);
+        StartCoroutine(_deathAnimationRoutine);
+    }
+
+    public void StopDeathAnimation()
+    {
+        if (_deathAnimationRoutine == null)
+        {
+            return;
+        }
+
+        StopCoroutine(_deathAnimationRoutine);
+        _deathAnimationRoutine = null;
+        ToggleAllRenderers(true);
+    }
+
+    private IEnumerator DeathAnimation(float blinkFrequency)
+    {
+        var waitTime = 1f / blinkFrequency / 2f;
+
+        while (true)
+        {
+            ToggleAllRenderers(false);
+
+            yield return new WaitForSeconds(waitTime);
+
+            ToggleAllRenderers(true);
+
+            yield return new WaitForSeconds(waitTime);
+        }
+    }
+
+    private void ToggleAllRenderers(bool state)
+    {
+        foreach(var bodyPart in _bodyParts)
+        {
+            bodyPart.TryGetComponent<Renderer>(out var renderer);
+            renderer.enabled = state;
         }
     }
 }
