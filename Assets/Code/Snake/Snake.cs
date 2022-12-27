@@ -76,4 +76,9 @@ public class Snake : MonoBehaviour
     {
         StopMoving();
     }
+
+    public void EatFood()
+    {
+        Length++;
+    }
 }
