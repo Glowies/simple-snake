@@ -6,7 +6,7 @@ using Zenject;
 public class Food : MonoBehaviour
 {
     [Inject]
-    private IGridService _gridService;
+    private readonly IGridService _gridService;
 
     private void OnTriggerEnter(Collider other)
     {

@@ -319,7 +319,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 52.398, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
@@ -450,7 +450,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &410087042
 MonoBehaviour:
@@ -747,7 +747,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1087399912
 GameObject:
@@ -1428,14 +1428,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1765631613}
     m_Modifications:
-    - target: {fileID: 825249417, guid: 7faea51d6f9904cceb36441336703a0c, type: 3}
-      propertyPath: Speed
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 825249417, guid: 7faea51d6f9904cceb36441336703a0c, type: 3}
-      propertyPath: Length
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 391444936957486815, guid: 7faea51d6f9904cceb36441336703a0c,
         type: 3}
       propertyPath: m_Name

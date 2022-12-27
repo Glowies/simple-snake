@@ -11,17 +11,17 @@ PrefabInstance:
     - target: {fileID: 2717458440045651614, guid: 0acff0f94c54445de903941c466d4c75,
         type: 3}
       propertyPath: m_Name
-      value: Head Variant
+      value: Head
       objectReference: {fileID: 0}
     - target: {fileID: 4970806673088548617, guid: 0acff0f94c54445de903941c466d4c75,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4970806673088548617, guid: 0acff0f94c54445de903941c466d4c75,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: -6.5
       objectReference: {fileID: 0}
     - target: {fileID: 4970806673088548617, guid: 0acff0f94c54445de903941c466d4c75,
         type: 3}
@@ -31,7 +31,7 @@ PrefabInstance:
     - target: {fileID: 4970806673088548617, guid: 0acff0f94c54445de903941c466d4c75,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: -6.5
       objectReference: {fileID: 0}
     - target: {fileID: 4970806673088548617, guid: 0acff0f94c54445de903941c466d4c75,
         type: 3}
@@ -41,17 +41,17 @@ PrefabInstance:
     - target: {fileID: 4970806673088548617, guid: 0acff0f94c54445de903941c466d4c75,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4970806673088548617, guid: 0acff0f94c54445de903941c466d4c75,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4970806673088548617, guid: 0acff0f94c54445de903941c466d4c75,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4970806673088548617, guid: 0acff0f94c54445de903941c466d4c75,
         type: 3}
@@ -73,6 +73,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 481af5b9fd0824183bb1eb758d282719, type: 2}
+    - target: {fileID: 8721541967170731889, guid: 0acff0f94c54445de903941c466d4c75,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 32
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -104,7 +109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba05a74390e054ecb83bccd962d5031e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Length: 1
+  Length: 5
+  Speed: 12
+  Direction: {x: 0, y: 0, z: 1}
+  IsMoving: 1
   SnakeBodyMover: {fileID: 825249416}
 --- !u!114 &825249416
 MonoBehaviour:

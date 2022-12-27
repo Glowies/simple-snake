@@ -8,5 +8,9 @@ public class SnakeInstaller : MonoInstaller
         Container.Bind<IGridService>()
             .To<GridService>()
             .AsSingle();
+
+        Container.Bind<IScoreService>()
+            .To<ScoreService>()
+            .AsSingle();
     }
 }

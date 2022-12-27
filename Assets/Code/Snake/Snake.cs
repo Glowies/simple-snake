@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 public class Snake : MonoBehaviour
 {
@@ -11,12 +12,9 @@ public class Snake : MonoBehaviour
     public bool IsMoving = true;
     public SnakeBodyMover SnakeBodyMover;
 
+    [Inject]
+    private readonly IScoreService _scoreService;
     private IEnumerator _moveRoutine;
-
-    private void Start()
-    {
-        //StartMoving();
-    }
 
     public void TurnLeft(InputAction.CallbackContext context = default)
     {
@@ -26,6 +24,7 @@ public class Snake : MonoBehaviour
         }
 
         Direction = Quaternion.AngleAxis(-90, Vector3.up) * Direction;
+        _scoreService.RegisterTurn();
     }
 
     public void TurnRight(InputAction.CallbackContext context = default)
@@ -36,6 +35,7 @@ public class Snake : MonoBehaviour
         }
 
         Direction = Quaternion.AngleAxis(90, Vector3.up) * Direction;
+        _scoreService.RegisterTurn();
     }
 
     public void StartMoving()
@@ -80,5 +80,6 @@ public class Snake : MonoBehaviour
     public void EatFood()
     {
         Length++;
+        _scoreService.RegisterEat();
     }
 }
