@@ -13,6 +13,7 @@ record TransformCopyValues
 public class SnakeBodyMover : MonoBehaviour
 {
     public GameObject BodyPrefab;
+    public float HeightBias = -0.01f;
 
     private Queue<TransformCopyValues> _bodyTransforms;
     private List<GameObject> _bodyParts;
@@ -74,7 +75,8 @@ public class SnakeBodyMover : MonoBehaviour
         in TransformCopyValues refTransform,
         ref Transform targetTransform)
     {
-        targetTransform.localPosition = refTransform.localPosition;
+        var newPos = refTransform.localPosition + Vector3.up * HeightBias;
+        targetTransform.localPosition = newPos;
         targetTransform.localScale = refTransform.localScale;
         targetTransform.localRotation = refTransform.localRotation;
     }
