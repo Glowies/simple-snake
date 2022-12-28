@@ -11,7 +11,6 @@ public class SnakeHazard : MonoBehaviour
         {
             return;
         }
-        print($"hello from {gameObject.name}");
 
         snake.Kill();
     }
