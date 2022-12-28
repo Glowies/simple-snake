@@ -11,6 +11,7 @@ public class SnakeInstaller : MonoInstaller
 
         Container.Bind<IScoreService>()
             .To<ScoreService>()
+            .FromComponentInHierarchy()
             .AsSingle();
     }
 }

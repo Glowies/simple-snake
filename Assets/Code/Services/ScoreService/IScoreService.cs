@@ -8,5 +8,6 @@ public interface IScoreService
 
     void RegisterEat();
     void RegisterTurn();
+    void Reset();
 }
 

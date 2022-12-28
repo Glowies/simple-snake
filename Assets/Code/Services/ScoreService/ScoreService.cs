@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class ScoreService : IScoreService
+public class ScoreService : MonoBehaviour, IScoreService
 {
-    public int Length { get; set; } = 5;
-
+    public TextMeshProUGUI LengthText;
+    public TextMeshProUGUI ScoreText;
+    public TextMeshProUGUI ComboText;
+    public int Length { get; set; } = 0;
     public int Score { get; private set; } = 0;
-
     public int Combo { get; private set; } = 0;
 
     private int _turnCount = 0;
@@ -31,10 +33,27 @@ public class ScoreService : IScoreService
         }
 
         _turnCount = 0;
+
+        UpdateTextDisplay();
     }
 
     public void RegisterTurn()
     {
         _turnCount++;
+    }
+
+    public void UpdateTextDisplay()
+    {
+        LengthText.text = Length.ToString();
+        ScoreText.text = Score.ToString();
+        ComboText.text = $"x{Combo}";
+    }
+
+    public void Reset()
+    {
+        Length = 0;
+        Score = 0;
+        Combo = 0;
+        UpdateTextDisplay();
     }
 }
