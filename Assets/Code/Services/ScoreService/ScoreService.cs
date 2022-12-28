@@ -40,6 +40,12 @@ public class ScoreService : MonoBehaviour, IScoreService
     public void RegisterTurn()
     {
         _turnCount++;
+
+        if(_turnCount > 5)
+        {
+            Combo = 0;
+            UpdateTextDisplay();
+        }
     }
 
     public void UpdateTextDisplay()
