@@ -68,6 +68,14 @@ public class Button3D : MonoBehaviour
         return result;
     }
 
+    public void TriggerOnce()
+    {
+        OnTouched.Invoke();
+
+        StopAllCoroutines();
+        StartCoroutine(BumpAnimation());
+    }
+
     private bool IsPositionOnCollider(Vector3 position)
     {
         Ray ray = Camera.main.ScreenPointToRay(position);
