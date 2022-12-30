@@ -24,6 +24,12 @@ public class Snake : MonoBehaviour
         TryGetComponent(out _renderer);
     }
 
+    public void TurnLeft()
+    {
+        Direction = Quaternion.AngleAxis(-90, Vector3.up) * Direction;
+        _scoreService.RegisterTurn();
+    }
+
     public void TurnLeft(InputAction.CallbackContext context = default)
     {
         if (!context.started)
@@ -31,7 +37,12 @@ public class Snake : MonoBehaviour
             return;
         }
 
-        Direction = Quaternion.AngleAxis(-90, Vector3.up) * Direction;
+        TurnLeft();
+    }
+
+    public void TurnRight()
+    {
+        Direction = Quaternion.AngleAxis(90, Vector3.up) * Direction;
         _scoreService.RegisterTurn();
     }
 
@@ -42,8 +53,7 @@ public class Snake : MonoBehaviour
             return;
         }
 
-        Direction = Quaternion.AngleAxis(90, Vector3.up) * Direction;
-        _scoreService.RegisterTurn();
+        TurnRight();
     }
 
     public void StartMoving()

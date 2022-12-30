@@ -70,7 +70,10 @@ MonoBehaviour:
   BumpTarget: {fileID: 4877611998441000429}
   BumpOffset: {x: 1, y: 0, z: 0}
   BumpRetreatSpeed: 8
-  OnTouched:
+  OnTouchedPlayer:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTouchedUI:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}

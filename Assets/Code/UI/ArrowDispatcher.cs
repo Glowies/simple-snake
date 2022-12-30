@@ -14,11 +14,41 @@ public class ArrowDispatcher : MonoBehaviour
 
         if(direction.x > .5)
         {
-            RightArrowButton.TriggerOnce();
+            TriggerRight();
         }
         else if(direction.x < -.5)
         {
-            LeftArrowButton.TriggerOnce();
+            TriggerLeft();
         }
+    }
+
+    public void OnLeft(InputAction.CallbackContext context)
+    {
+        if(!context.started)
+        {
+            return;
+        }
+
+        TriggerLeft();
+    }
+
+    public void OnRight(InputAction.CallbackContext context)
+    {
+        if(!context.started)
+        {
+            return;
+        }
+
+        TriggerRight();
+    }
+
+    public void TriggerRight()
+    {
+        RightArrowButton.TriggerOnce();
+    }
+
+    public void TriggerLeft()
+    {
+        LeftArrowButton.TriggerOnce();
     }
 }

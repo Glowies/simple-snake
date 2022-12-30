@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
+using Zenject;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
@@ -14,10 +15,13 @@ public class Button3D : MonoBehaviour
     public Vector3 BumpOffset = Vector3.right;
     public float BumpRetreatSpeed = 2f;
 
-    public UnityEvent OnTouched;
+    public UnityEvent OnTouchedPlayer;
+    public UnityEvent OnTouchedUI;
 
     private Collider _collider;
     private Vector3 _startPosition;
+    [Inject]
+    private IInputManager _inputManager;
 
     private void Awake()
     {
@@ -27,10 +31,12 @@ public class Button3D : MonoBehaviour
 
     void Update()
     {
+        var onTouchEvent = GetOnTouchedEvent();
+
         var touchCount = TouchCount();
         for(int i=0; i<touchCount; i++)
         {
-            OnTouched.Invoke();
+            onTouchEvent.Invoke();
         }
 
         if(touchCount > 0)
@@ -70,10 +76,17 @@ public class Button3D : MonoBehaviour
 
     public void TriggerOnce()
     {
-        OnTouched.Invoke();
+        GetOnTouchedEvent().Invoke();
 
         StopAllCoroutines();
         StartCoroutine(BumpAnimation());
+    }
+
+    public UnityEvent GetOnTouchedEvent()
+    {
+        return _inputManager.CurrentActionMap == ActionMap.UI
+            ? OnTouchedUI
+            : OnTouchedPlayer;
     }
 
     private bool IsPositionOnCollider(Vector3 position)
