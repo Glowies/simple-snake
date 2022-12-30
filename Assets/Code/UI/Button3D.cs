@@ -10,22 +10,33 @@ using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 [RequireComponent(typeof(Collider))]
 public class Button3D : MonoBehaviour
 {
+    public Transform BumpTarget;
+    public Vector3 BumpOffset = Vector3.right;
+    public float BumpRetreatSpeed = 2f;
+
     public UnityEvent OnTouched;
 
     private Collider _collider;
+    private Vector3 _startPosition;
 
     private void Awake()
     {
         TryGetComponent(out _collider);
+        _startPosition = BumpTarget.localPosition;
     }
 
-    // Update is called once per frame
     void Update()
     {
         var touchCount = TouchCount();
         for(int i=0; i<touchCount; i++)
         {
             OnTouched.Invoke();
+        }
+
+        if(touchCount > 0)
+        {
+            StopAllCoroutines();
+            StartCoroutine(BumpAnimation());
         }
     }
 
@@ -61,5 +72,17 @@ public class Button3D : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(position);
         return _collider.Raycast(ray, out var hit, 1024);
+    }
+
+    private IEnumerator BumpAnimation()
+    {
+        float t = 0;
+        var bumpTarget = _startPosition + BumpOffset;
+        while(t < 1)
+        {
+            t += Time.deltaTime * BumpRetreatSpeed;
+            BumpTarget.localPosition = Vector3.Lerp(bumpTarget, _startPosition, t);
+            yield return new WaitForEndOfFrame();
+        }
     }
 }
