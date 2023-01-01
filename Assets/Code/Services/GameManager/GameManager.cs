@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour, IGameManager
     [Zenject.Inject]
     private IInputManager _inputManager;
 
+    [Zenject.Inject]
+    private IScoreService _scoreService;
+
     private void Awake()
     {
         SetActiveGameEntities(false);
@@ -21,6 +24,7 @@ public class GameManager : MonoBehaviour, IGameManager
     public void StartGame()
     {
         SetActiveGameEntities(true);
+        _scoreService.Reset();
         SnakeHead.Reset();
         SnakeHead.StartMoving();
         Menu.HideAllFaces();
