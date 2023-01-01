@@ -14,9 +14,17 @@ public class SnakeInstaller : MonoInstaller
             .FromComponentInHierarchy()
             .AsSingle();
 
+        Container.Bind<IGameManager>()
+            .To<GameManager>()
+            .FromComponentInHierarchy()
+            .AsSingle();
+
         Container.Bind<IInputManager>()
             .To<InputManager>()
             .FromComponentInHierarchy()
             .AsSingle();
+        
+        Container.BindFactory<UnityEngine.Object, SnakeBody, SnakeBody.Factory>()
+            .FromFactory<PrefabFactory<SnakeBody>>();
     }
 }

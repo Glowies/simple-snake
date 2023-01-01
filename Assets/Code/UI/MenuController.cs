@@ -34,7 +34,7 @@ public class MenuController : MonoBehaviour
         ActiveFace = _startFace;
     }
 
-    private void ShowActiveFace()
+    public void ShowActiveFace()
     {
         HideAllFaces();
         var face = _menuFaces[ActiveFace];
@@ -47,7 +47,7 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    private void HideAllFaces()
+    public void HideAllFaces()
     {
         foreach(Transform child in transform)
         {
@@ -77,6 +77,27 @@ public class MenuController : MonoBehaviour
         {
             LeftPage();
         }
+    }
+
+    public void OnSelect(InputAction.CallbackContext context)
+    {
+        if(!context.started)
+        {
+            return;
+        }
+
+        TriggerActiveFace();
+    }
+
+    public void TriggerActiveFace()
+    {
+        var face = _menuFaces[ActiveFace];
+        if(!face.TryGetComponent(out Button3D button))
+        {
+            return;
+        }
+
+        button.TriggerOnce();
     }
 
     private int MathMod(int a, int b)

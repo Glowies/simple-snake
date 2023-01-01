@@ -26,7 +26,10 @@ public class Button3D : MonoBehaviour
     private void Awake()
     {
         TryGetComponent(out _collider);
-        _startPosition = BumpTarget.localPosition;
+        if(BumpTarget != null)
+        {
+            _startPosition = BumpTarget.localPosition;
+        }
     }
 
     void Update()
@@ -41,8 +44,7 @@ public class Button3D : MonoBehaviour
 
         if(touchCount > 0)
         {
-            StopAllCoroutines();
-            StartCoroutine(BumpAnimation());
+           PlayBumpAnimation();
         }
     }
 
@@ -74,12 +76,21 @@ public class Button3D : MonoBehaviour
         return result;
     }
 
-    public void TriggerOnce()
+    public void PlayBumpAnimation()
     {
-        GetOnTouchedEvent().Invoke();
+        if(BumpTarget == null)
+        {
+            return;
+        }
 
         StopAllCoroutines();
         StartCoroutine(BumpAnimation());
+    }
+
+    public void TriggerOnce()
+    {
+        GetOnTouchedEvent().Invoke();
+        PlayBumpAnimation();
     }
 
     public UnityEvent GetOnTouchedEvent()

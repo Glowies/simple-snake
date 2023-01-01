@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 2565570888876033492, guid: 1d099228d44f3453ab6b4e9ebaf4eab1,
         type: 3}
       propertyPath: m_Name
-      value: PlayFace
+      value: PlayFace Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2565570888876033493, guid: 1d099228d44f3453ab6b4e9ebaf4eab1,
         type: 3}
