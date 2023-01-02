@@ -19,11 +19,14 @@ public class SnakeBodyMover : MonoBehaviour
     private List<GameObject> _bodyParts;
     private TransformCopyValues _defaultTransform;
     private IEnumerator _deathAnimationRoutine;
+    
+    [Zenject.Inject]
+    private readonly SnakeBody.Factory _bodyFactory;
+
 
     void Awake()
     {
-        _bodyTransforms = new();
-        _bodyParts = new();
+        Reset();
         _defaultTransform = new()
         {
             localPosition = Vector3.up * 1327,
@@ -102,12 +105,27 @@ public class SnakeBodyMover : MonoBehaviour
         diff *= -1;
         for(int i=0; i<diff; i++)
         {
-            var newBody = Instantiate(BodyPrefab, snake.transform.parent);
+            var newBody = _bodyFactory.Create(BodyPrefab).gameObject;
             var newTransform = newBody.transform;
+            newTransform.SetParent(snake.transform.parent);
             CopyTransform(_defaultTransform, ref newTransform);
             newBody.name = $"Body{_bodyParts.Count}";
             _bodyParts.Add(newBody);
         }
+    }
+
+    public void Reset()
+    {
+        if(_bodyParts != null)
+        {
+            foreach(var bodyPart in _bodyParts)
+            {
+                DestroyImmediate(bodyPart);
+            }
+        }
+        
+        _bodyTransforms = new();
+        _bodyParts = new();
     }
 
     public void PlayDeathAnimation(float blinkFrequency)

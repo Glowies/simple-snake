@@ -18,10 +18,24 @@ public class Snake : MonoBehaviour
     private Renderer _renderer;
     private IEnumerator _moveRoutine;
     private IEnumerator _deathAnimationRoutine;
+    private Vector3 _startPosition;
+    private int _startLength;
+    private float _startSpeed;
+    private Vector3 _startDirection;
 
     private void Awake()
     {
         TryGetComponent(out _renderer);
+        _startPosition = transform.localPosition;
+        _startLength = Length;
+        _startSpeed = Speed;
+        _startDirection = Direction;
+    }
+
+    public void TurnLeft()
+    {
+        Direction = Quaternion.AngleAxis(-90, Vector3.up) * Direction;
+        _scoreService.RegisterTurn();
     }
 
     public void TurnLeft(InputAction.CallbackContext context = default)
@@ -31,7 +45,12 @@ public class Snake : MonoBehaviour
             return;
         }
 
-        Direction = Quaternion.AngleAxis(-90, Vector3.up) * Direction;
+        TurnLeft();
+    }
+
+    public void TurnRight()
+    {
+        Direction = Quaternion.AngleAxis(90, Vector3.up) * Direction;
         _scoreService.RegisterTurn();
     }
 
@@ -42,8 +61,7 @@ public class Snake : MonoBehaviour
             return;
         }
 
-        Direction = Quaternion.AngleAxis(90, Vector3.up) * Direction;
-        _scoreService.RegisterTurn();
+        TurnRight();
     }
 
     public void StartMoving()
@@ -128,6 +146,15 @@ public class Snake : MonoBehaviour
 
             yield return new WaitForSeconds(waitTime);
         }
+    }
+    
+    public void Reset()
+    {
+        transform.localPosition = _startPosition;
+        Length = _startLength;
+        Speed = _startSpeed;
+        Direction = _startDirection;
+        SnakeBodyMover.Reset();
     }
 
     public void Kill()

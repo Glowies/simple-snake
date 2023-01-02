@@ -24,18 +24,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "StartMove",
+                    "name": "Pause",
                     "type": "Button",
                     "id": "a6dbec2d-0372-4526-87c8-87baec629cca",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "StopMove",
-                    "type": "Button",
-                    "id": "386509fe-e4e0-49d2-b343-0f1d6717e9a5",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -93,19 +84,19 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "StartMove",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "c4d7dc8d-d487-4fcc-84bc-a8e7ac6d4e0f",
+                    "id": "61e3727d-6570-4321-87d8-650751de239b",
                     "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "StopMove",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -120,6 +111,15 @@
                     "type": "PassThrough",
                     "id": "4e10093a-610c-4988-86d9-271d79ffcc7d",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "fe63f61c-bfe5-4733-b0b0-ee62eaed1f54",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -622,6 +622,17 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a6f389b6-7cae-463c-8991-bf7b4400e0b8",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

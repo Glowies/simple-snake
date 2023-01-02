@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SnakeHazard : MonoBehaviour
 {
+    [Zenject.Inject]
+    private IGameManager _gameManager;
+
     private void OnTriggerEnter(Collider other)
     {
         Snake snake;
@@ -12,6 +15,6 @@ public class SnakeHazard : MonoBehaviour
             return;
         }
 
-        snake.Kill();
+        _gameManager.EndGame();
     }
 }
