@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class MenuController : MonoBehaviour
 {
+    public bool ZoomedIn;
+
     public int ActiveFace {
         get
         {
@@ -22,9 +24,9 @@ public class MenuController : MonoBehaviour
     private int _activeFace;
     private List<GameObject> _menuFaces;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Open()
     {
+        gameObject.SetActive(true);
         _menuFaces = new();
         foreach(Transform child in transform)
         {
@@ -63,30 +65,6 @@ public class MenuController : MonoBehaviour
     public void RightPage()
     {
         ActiveFace++;
-    }
-
-    public void OnNavigate(InputAction.CallbackContext context)
-    {
-        var direction = context.ReadValue<Vector2>();
-
-        if(direction.x > .5)
-        {
-            RightPage();
-        }
-        else if(direction.x < -.5)
-        {
-            LeftPage();
-        }
-    }
-
-    public void OnSelect(InputAction.CallbackContext context)
-    {
-        if(!context.started)
-        {
-            return;
-        }
-
-        TriggerActiveFace();
     }
 
     public void TriggerActiveFace()

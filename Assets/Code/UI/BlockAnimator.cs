@@ -52,7 +52,6 @@ public class BlockAnimator : MonoBehaviour
         }
     }
 
-    [ContextMenu("test")]
     public void PlayInAnimation()
     {
         if(_animationRoutine != null)
@@ -64,7 +63,6 @@ public class BlockAnimator : MonoBehaviour
         StartCoroutine(_animationRoutine);
     }
 
-    [ContextMenu("out")]
     public void PlayOutAnimation()
     {
         if (_animationRoutine != null)

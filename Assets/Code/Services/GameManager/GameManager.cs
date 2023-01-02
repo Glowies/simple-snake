@@ -5,16 +5,20 @@ using UnityEngine;
 public class GameManager : MonoBehaviour, IGameManager
 {
     public Snake SnakeHead;
-    public MenuController Menu;
     public GameObject FoodSpawner;
     public GameObject ScoreDisplay;
-    public GameObject PauseFace;
+    public MenuController InGameMenu;
+    public MenuController PauseMenu;
+    public MenuController EndMenu;
 
     [Zenject.Inject]
     private IInputManager _inputManager;
 
     [Zenject.Inject]
     private IScoreService _scoreService;
+
+    [Zenject.Inject]
+    private IMenuManager _menuManager;
 
     private void Awake()
     {
@@ -27,7 +31,7 @@ public class GameManager : MonoBehaviour, IGameManager
         _scoreService.Reset();
         SnakeHead.Reset();
         SnakeHead.StartMoving();
-        Menu.HideAllFaces();
+        _menuManager.OpenMenu(InGameMenu);
         _inputManager.CurrentActionMap = ActionMap.Player;
     }
 
@@ -35,25 +39,23 @@ public class GameManager : MonoBehaviour, IGameManager
     {
         SetActiveGameEntities(false);
         SnakeHead.StopMoving();
-        Menu.ShowActiveFace();
         _inputManager.CurrentActionMap = ActionMap.UI;
-        PauseFace.SetActive(true);
+        _menuManager.OpenMenu(PauseMenu);
     }
 
     public void UnpauseGame()
     {
         SetActiveGameEntities(true);
         SnakeHead.StartMoving();
-        Menu.HideAllFaces();
         _inputManager.CurrentActionMap = ActionMap.Player;
-        PauseFace.SetActive(false);
+        _menuManager.OpenMenu(InGameMenu);
     }
 
     public void EndGame()
     {
         SnakeHead.Kill();
-        Menu.ShowActiveFace();
         _inputManager.CurrentActionMap = ActionMap.UI;
+        _menuManager.OpenMenu(EndMenu);
         SetActiveGameEntities(false);
     }
 
