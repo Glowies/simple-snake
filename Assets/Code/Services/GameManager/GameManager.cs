@@ -6,7 +6,6 @@ public class GameManager : MonoBehaviour, IGameManager
 {
     public Snake SnakeHead;
     public GameObject FoodSpawner;
-    public GameObject ScoreDisplay;
     public MenuController InGameMenu;
     public MenuController PauseMenu;
     public MenuController EndMenu;
@@ -63,6 +62,5 @@ public class GameManager : MonoBehaviour, IGameManager
     {
         SnakeHead.gameObject.SetActive(active);
         FoodSpawner.SetActive(active);
-        ScoreDisplay.SetActive(active);
     }
 }
