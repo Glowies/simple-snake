@@ -11,6 +11,7 @@ public class ScoreService : MonoBehaviour, IScoreService
     public int Length { get; set; } = 0;
     public int Score { get; private set; } = 0;
     public int Combo { get; private set; } = 0;
+    public int MaxCombo { get; private set; } = 0;
 
     private int _turnCount = 0;
 
@@ -18,6 +19,7 @@ public class ScoreService : MonoBehaviour, IScoreService
     {
         Length++;
         Combo++;
+        MaxCombo = Mathf.Max(MaxCombo, Combo);
 
         if(_turnCount < 4)
         {
@@ -60,6 +62,7 @@ public class ScoreService : MonoBehaviour, IScoreService
         Length = 0;
         Score = 0;
         Combo = 0;
+        MaxCombo = 0;
         UpdateTextDisplay();
     }
 }
