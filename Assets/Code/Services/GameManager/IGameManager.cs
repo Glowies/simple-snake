@@ -7,5 +7,6 @@ public interface IGameManager
     void PauseGame();
     void UnpauseGame();
     void EndGame();
+    void ShowEndScreen();
 }
 

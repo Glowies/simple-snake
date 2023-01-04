@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour, IGameManager
     public MenuController InGameMenu;
     public MenuController PauseMenu;
     public MenuController EndMenu;
+    public MenuController PreEndMenu;
 
     [Zenject.Inject]
     private IInputManager _inputManager;
@@ -54,8 +55,14 @@ public class GameManager : MonoBehaviour, IGameManager
     {
         SnakeHead.Kill();
         _inputManager.CurrentActionMap = ActionMap.UI;
-        _menuManager.OpenMenu(EndMenu);
+        _menuManager.OpenMenu(PreEndMenu);
+    }
+
+    public void ShowEndScreen()
+    {
         SetActiveGameEntities(false);
+        _inputManager.CurrentActionMap = ActionMap.UI;
+        _menuManager.OpenMenu(EndMenu);
     }
 
     private void SetActiveGameEntities(bool active)
