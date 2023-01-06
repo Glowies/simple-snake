@@ -26,12 +26,16 @@ public class GameManager : MonoBehaviour, IGameManager
     private void Awake()
     {
         IsRunning = false;
-        SetActiveGameEntities(false);
+    }
+
+    private void Start()
+    {
+        ToggleGameEntities(false);
     }
 
     public void StartGame()
     {
-        SetActiveGameEntities(true);
+        ToggleGameEntities(true);
         _scoreService.Reset();
         SnakeHead.Reset();
         SnakeHead.StartMoving();
@@ -41,7 +45,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void PauseGame()
     {
-        SetActiveGameEntities(false);
+        ToggleGameEntities(false);
         SnakeHead.StopMoving();
         _menuManager.OpenMenu(PauseMenu);
         IsRunning = false;
@@ -49,7 +53,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void UnpauseGame()
     {
-        SetActiveGameEntities(true);
+        ToggleGameEntities(true);
         SnakeHead.StartMoving();
         _menuManager.OpenMenu(InGameMenu);
         IsRunning = true;
@@ -64,14 +68,14 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void ShowEndScreen()
     {
-        SetActiveGameEntities(false);
+        ToggleGameEntities(false);
         _menuManager.OpenMenu(EndMenu);
         IsRunning = false;
     }
 
-    private void SetActiveGameEntities(bool active)
+    private void ToggleGameEntities(bool active)
     {
-        SnakeHead.gameObject.SetActive(active);
+        SnakeHead.ToggleEnabled(active);
         FoodSpawner.SetActive(active);
     }
 }

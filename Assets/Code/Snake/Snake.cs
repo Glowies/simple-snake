@@ -75,7 +75,6 @@ public class Snake : MonoBehaviour
         _moveRoutine = MoveSnake();
         StartCoroutine(_moveRoutine);
         StopDeathAnimation();
-        SnakeBodyMover.StopDeathAnimation();
     }
 
     public void StopMoving()
@@ -138,14 +137,26 @@ public class Snake : MonoBehaviour
 
         while (true)
         {
-            _renderer.enabled = false;
+            ToggleRenderer(false);
 
             yield return new WaitForSeconds(waitTime);
 
-            _renderer.enabled = true;
+            ToggleRenderer(true);
 
             yield return new WaitForSeconds(waitTime);
         }
+    }
+
+    public void ToggleEnabled(bool state)
+    {
+        gameObject.SetActive(state);
+        SnakeBodyMover.ToggleAllEnabled(state);
+    }
+
+    public void ToggleRenderer(bool state)
+    {
+        _renderer.enabled = state;
+        SnakeBodyMover.ToggleAllRenderers(state);
     }
     
     public void Reset()
@@ -161,7 +172,6 @@ public class Snake : MonoBehaviour
     {
         StopMoving();
         PlayDeathAnimation(DeathBlinkFrequency);
-        SnakeBodyMover.PlayDeathAnimation(DeathBlinkFrequency);
     }
 
     public void EatFood()
