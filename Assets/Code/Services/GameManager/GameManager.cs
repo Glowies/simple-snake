@@ -12,16 +12,20 @@ public class GameManager : MonoBehaviour, IGameManager
     public MenuController PreEndMenu;
 
     [Zenject.Inject]
-    private IInputManager _inputManager;
-
-    [Zenject.Inject]
     private IScoreService _scoreService;
 
     [Zenject.Inject]
     private IMenuManager _menuManager;
 
+    public bool IsRunning 
+    {
+        get;
+        private set;
+    }
+
     private void Awake()
     {
+        IsRunning = false;
         SetActiveGameEntities(false);
     }
 
@@ -32,37 +36,37 @@ public class GameManager : MonoBehaviour, IGameManager
         SnakeHead.Reset();
         SnakeHead.StartMoving();
         _menuManager.OpenMenu(InGameMenu);
-        _inputManager.CurrentActionMap = ActionMap.Player;
+        IsRunning = true;
     }
 
     public void PauseGame()
     {
         SetActiveGameEntities(false);
         SnakeHead.StopMoving();
-        _inputManager.CurrentActionMap = ActionMap.UI;
         _menuManager.OpenMenu(PauseMenu);
+        IsRunning = false;
     }
 
     public void UnpauseGame()
     {
         SetActiveGameEntities(true);
         SnakeHead.StartMoving();
-        _inputManager.CurrentActionMap = ActionMap.Player;
         _menuManager.OpenMenu(InGameMenu);
+        IsRunning = true;
     }
 
     public void EndGame()
     {
         SnakeHead.Kill();
-        _inputManager.CurrentActionMap = ActionMap.UI;
         _menuManager.OpenMenu(PreEndMenu);
+        IsRunning = false;
     }
 
     public void ShowEndScreen()
     {
         SetActiveGameEntities(false);
-        _inputManager.CurrentActionMap = ActionMap.UI;
         _menuManager.OpenMenu(EndMenu);
+        IsRunning = false;
     }
 
     private void SetActiveGameEntities(bool active)

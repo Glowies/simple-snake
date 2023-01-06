@@ -19,8 +19,10 @@ public class MenuManager : MonoBehaviour, IMenuManager
     private void Start()
     {
         DisableAllMenus();
-        OpenMenu(MainMenu);
+        OpenMainMenu();
     }
+
+    public void OpenMainMenu() => OpenMenu(MainMenu);
     
     public void OnNavigate(InputAction.CallbackContext context)
     {
