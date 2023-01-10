@@ -6,7 +6,6 @@ public class MenuThumbnail : MonoBehaviour
 {
     public int FaceCount = 3;
     public int SelectedFace = 1;
-    public bool HasHomeFace = false;
 
     public Vector3 PositionDelta = Vector3.right;
 
@@ -20,15 +19,20 @@ public class MenuThumbnail : MonoBehaviour
         _thumbnails = new();
     }
 
-    [ContextMenu("Update Display")]
-    public void UpdateDisplay()
+    public void UpdateDisplay(MenuController menu)
     {
+        FaceCount = menu.FaceCount;
+        SelectedFace = menu.ActiveFace;
+
         AddRemoveThumbnails();
         UpdatePositions();
     }
 
     private void AddRemoveThumbnails()
     {
+        // Show nothing if only 1 face
+        SelectedThumbnail.SetActive(FaceCount > 1);
+
         var targetLength = FaceCount - 1;
         var diff = _thumbnails.Count - targetLength;
         if (diff >= 0)
