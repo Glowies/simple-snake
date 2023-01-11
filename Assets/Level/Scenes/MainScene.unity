@@ -4226,6 +4226,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2996246188272559112, guid: 72df91b3f0f3f45e69212fa4f6c64da2,
+        type: 3}
+      propertyPath: FlareDuration
+      value: 0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 2996246188272559112, guid: 72df91b3f0f3f45e69212fa4f6c64da2,
+        type: 3}
+      propertyPath: FlareEmission.b
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 2996246188272559112, guid: 72df91b3f0f3f45e69212fa4f6c64da2,
+        type: 3}
+      propertyPath: FlareEmission.g
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 2996246188272559112, guid: 72df91b3f0f3f45e69212fa4f6c64da2,
+        type: 3}
+      propertyPath: FlareEmission.r
+      value: 512
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
