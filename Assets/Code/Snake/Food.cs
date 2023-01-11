@@ -41,9 +41,7 @@ public class Food : MonoBehaviour
 
         _eatLock = true;
         snake.EatFood();
-        MoveToRandomCell();
-        StartCoroutine(SpawnAnimation());
-        StartCoroutine(UnlockNextFrame());
+        SpawnRandom();
     }
 
     private void MoveToRandomCell()
@@ -51,6 +49,13 @@ public class Food : MonoBehaviour
         var newPos = _gridService.GetRandomCellPosition();
         newPos.y = transform.localPosition.y;
         transform.localPosition = newPos;
+    }
+
+    public void SpawnRandom()
+    {
+        MoveToRandomCell();
+        StartCoroutine(SpawnAnimation());
+        StartCoroutine(UnlockNextFrame());
     }
 
     IEnumerator UnlockNextFrame()

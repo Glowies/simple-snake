@@ -1132,7 +1132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SnakeHead: {fileID: 1778849257}
-  FoodSpawner: {fileID: 1374722614}
+  FoodSpawner: {fileID: 4714983999034896206}
   InGameMenu: {fileID: 1933047475}
   PauseMenu: {fileID: 1674245362}
   EndMenu: {fileID: 1841610808}
@@ -2441,6 +2441,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4714983999034896204}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4714983999034896206 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2996246188272559112, guid: 72df91b3f0f3f45e69212fa4f6c64da2,
+    type: 3}
+  m_PrefabInstance: {fileID: 4714983999034896204}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33cad440fe07441cb9212155ba521b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6201221142689660231
 PrefabInstance:
   m_ObjectHideFlags: 0

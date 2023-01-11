@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.EnhancedTouch;
 public class GameManager : MonoBehaviour, IGameManager
 {
     public Snake SnakeHead;
-    public GameObject FoodSpawner;
+    public Food FoodSpawner;
     public MenuController InGameMenu;
     public MenuController PauseMenu;
     public MenuController EndMenu;
@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour, IGameManager
         _scoreService.Reset();
         SnakeHead.Reset();
         SnakeHead.StartMoving();
+        FoodSpawner.SpawnRandom();
         _menuManager.OpenMenu(InGameMenu);
         IsRunning = true;
     }
@@ -78,6 +79,6 @@ public class GameManager : MonoBehaviour, IGameManager
     private void ToggleGameEntities(bool active)
     {
         SnakeHead.ToggleEnabled(active);
-        FoodSpawner.SetActive(active);
+        FoodSpawner.gameObject.SetActive(active);
     }
 }
