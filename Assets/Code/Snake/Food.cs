@@ -6,7 +6,7 @@ using Zenject;
 public class Food : MonoBehaviour
 {
     public float FlareDuration = 0.2f;
-    
+
     [ColorUsage(true, true)]
     public Color FlareEmission;
 
@@ -26,7 +26,14 @@ public class Food : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.TryGetComponent(out SnakeBody body))
+        {
+            MoveToRandomCell();
+            return;
+        }
+
         Snake snake;
+
         if (!other.TryGetComponent(out snake) || _eatLock)
         {
             return;
