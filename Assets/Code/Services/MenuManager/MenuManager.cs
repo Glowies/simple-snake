@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class MenuManager : MonoBehaviour, IMenuManager
 {
     public MenuController MainMenu;
+    public MenuThumbnail Thumbnails;
     public CameraAnimator CameraAnimator;
 
     private MenuController[] _menus;
@@ -19,8 +20,10 @@ public class MenuManager : MonoBehaviour, IMenuManager
     private void Start()
     {
         DisableAllMenus();
-        OpenMenu(MainMenu);
+        OpenMainMenu();
     }
+
+    public void OpenMainMenu() => OpenMenu(MainMenu);
     
     public void OnNavigate(InputAction.CallbackContext context)
     {
@@ -34,6 +37,8 @@ public class MenuManager : MonoBehaviour, IMenuManager
         {
             _openMenu.LeftPage();
         }
+
+        UpdateThumbnails();
     }
 
     public void OnSelect(InputAction.CallbackContext context)
@@ -64,6 +69,8 @@ public class MenuManager : MonoBehaviour, IMenuManager
         {
             CameraAnimator.ZoomOut();
         }
+
+        UpdateThumbnails();
     }
 
     private void DisableAllMenus()
@@ -74,8 +81,29 @@ public class MenuManager : MonoBehaviour, IMenuManager
         }
     }
 
-    public void RightPage() => _openMenu?.RightPage();
+    public void RightPage(){
+        if(_openMenu == null)
+        {
+            return;
+        }
 
-    public void LeftPage() => _openMenu?.LeftPage();
+        _openMenu.RightPage();
+        UpdateThumbnails();
+    } 
+
+    public void LeftPage(){
+        if(_openMenu == null)
+        {
+            return;
+        }
+
+        _openMenu.LeftPage();
+        UpdateThumbnails();
+    } 
+
+    private void UpdateThumbnails()
+    {
+        Thumbnails.UpdateDisplay(_openMenu);
+    }
 }
 

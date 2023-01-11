@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 public class GameManager : MonoBehaviour, IGameManager
 {
     public Snake SnakeHead;
     public GameObject FoodSpawner;
-    public GameObject ScoreDisplay;
     public MenuController InGameMenu;
     public MenuController PauseMenu;
     public MenuController EndMenu;
-
-    [Zenject.Inject]
-    private IInputManager _inputManager;
+    public MenuController PreEndMenu;
 
     [Zenject.Inject]
     private IScoreService _scoreService;
@@ -20,49 +18,66 @@ public class GameManager : MonoBehaviour, IGameManager
     [Zenject.Inject]
     private IMenuManager _menuManager;
 
+    public bool IsRunning 
+    {
+        get;
+        private set;
+    }
+
     private void Awake()
     {
-        SetActiveGameEntities(false);
+        EnhancedTouchSupport.Enable();
+        IsRunning = false;
+    }
+
+    private void Start()
+    {
+        ToggleGameEntities(false);
     }
 
     public void StartGame()
     {
-        SetActiveGameEntities(true);
+        ToggleGameEntities(true);
         _scoreService.Reset();
         SnakeHead.Reset();
         SnakeHead.StartMoving();
         _menuManager.OpenMenu(InGameMenu);
-        _inputManager.CurrentActionMap = ActionMap.Player;
+        IsRunning = true;
     }
 
     public void PauseGame()
     {
-        SetActiveGameEntities(false);
+        ToggleGameEntities(false);
         SnakeHead.StopMoving();
-        _inputManager.CurrentActionMap = ActionMap.UI;
         _menuManager.OpenMenu(PauseMenu);
+        IsRunning = false;
     }
 
     public void UnpauseGame()
     {
-        SetActiveGameEntities(true);
+        ToggleGameEntities(true);
         SnakeHead.StartMoving();
-        _inputManager.CurrentActionMap = ActionMap.Player;
         _menuManager.OpenMenu(InGameMenu);
+        IsRunning = true;
     }
 
     public void EndGame()
     {
         SnakeHead.Kill();
-        _inputManager.CurrentActionMap = ActionMap.UI;
-        _menuManager.OpenMenu(EndMenu);
-        SetActiveGameEntities(false);
+        _menuManager.OpenMenu(PreEndMenu);
+        IsRunning = false;
     }
 
-    private void SetActiveGameEntities(bool active)
+    public void ShowEndScreen()
     {
-        SnakeHead.gameObject.SetActive(active);
+        ToggleGameEntities(false);
+        _menuManager.OpenMenu(EndMenu);
+        IsRunning = false;
+    }
+
+    private void ToggleGameEntities(bool active)
+    {
+        SnakeHead.ToggleEnabled(active);
         FoodSpawner.SetActive(active);
-        ScoreDisplay.SetActive(active);
     }
 }

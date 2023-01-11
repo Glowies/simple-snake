@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.Events; 
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
 using Zenject;
@@ -21,7 +21,7 @@ public class Button3D : MonoBehaviour
     private Collider _collider;
     private Vector3 _startPosition;
     [Inject]
-    private IInputManager _inputManager;
+    private IGameManager _gameManager;
 
     private void Awake()
     {
@@ -57,13 +57,6 @@ public class Button3D : MonoBehaviour
     {
         int result = 0;
 
-        if (Mouse.current.leftButton.wasPressedThisFrame &&
-            IsPositionOnCollider(Mouse.current.position.ReadValue()))
-        {
-            result++;
-        }
-
-        
         foreach (Touch touch in Touch.activeTouches)
         {
             if (touch.phase == TouchPhase.Began &&
@@ -95,9 +88,9 @@ public class Button3D : MonoBehaviour
 
     public UnityEvent GetOnTouchedEvent()
     {
-        return _inputManager.CurrentActionMap == ActionMap.UI
-            ? OnTouchedUI
-            : OnTouchedPlayer;
+        return _gameManager.IsRunning
+            ? OnTouchedPlayer
+            : OnTouchedUI;
     }
 
     private bool IsPositionOnCollider(Vector3 position)

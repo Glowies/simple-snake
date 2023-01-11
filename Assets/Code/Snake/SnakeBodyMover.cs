@@ -18,7 +18,6 @@ public class SnakeBodyMover : MonoBehaviour
     private Queue<TransformCopyValues> _bodyTransforms;
     private List<GameObject> _bodyParts;
     private TransformCopyValues _defaultTransform;
-    private IEnumerator _deathAnimationRoutine;
     
     [Zenject.Inject]
     private readonly SnakeBody.Factory _bodyFactory;
@@ -128,51 +127,20 @@ public class SnakeBodyMover : MonoBehaviour
         _bodyParts = new();
     }
 
-    public void PlayDeathAnimation(float blinkFrequency)
-    {
-        if (_deathAnimationRoutine != null)
-        {
-            return;
-        }
-
-        _deathAnimationRoutine = DeathAnimation(blinkFrequency);
-        StartCoroutine(_deathAnimationRoutine);
-    }
-
-    public void StopDeathAnimation()
-    {
-        if (_deathAnimationRoutine == null)
-        {
-            return;
-        }
-
-        StopCoroutine(_deathAnimationRoutine);
-        _deathAnimationRoutine = null;
-        ToggleAllRenderers(true);
-    }
-
-    private IEnumerator DeathAnimation(float blinkFrequency)
-    {
-        var waitTime = 1f / blinkFrequency / 2f;
-
-        while (true)
-        {
-            ToggleAllRenderers(false);
-
-            yield return new WaitForSeconds(waitTime);
-
-            ToggleAllRenderers(true);
-
-            yield return new WaitForSeconds(waitTime);
-        }
-    }
-
-    private void ToggleAllRenderers(bool state)
+    public void ToggleAllRenderers(bool state)
     {
         foreach(var bodyPart in _bodyParts)
         {
             bodyPart.TryGetComponent<Renderer>(out var renderer);
             renderer.enabled = state;
+        }
+    }
+
+    public void ToggleAllEnabled(bool state)
+    {
+        foreach(var bodyPart in _bodyParts)
+        {
+            bodyPart.SetActive(state);
         }
     }
 }

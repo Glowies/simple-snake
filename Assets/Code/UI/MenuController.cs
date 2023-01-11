@@ -19,6 +19,8 @@ public class MenuController : MonoBehaviour
         }
     }
 
+    public int FaceCount => _menuFaces.Count;
+
     [SerializeField]
     private int _startFace;
     private int _activeFace;

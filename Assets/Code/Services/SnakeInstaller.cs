@@ -19,11 +19,6 @@ public class SnakeInstaller : MonoInstaller
             .FromComponentInHierarchy()
             .AsSingle();
 
-        Container.Bind<IInputManager>()
-            .To<InputManager>()
-            .FromComponentInHierarchy()
-            .AsSingle();
-
         Container.Bind<IMenuManager>()
             .To<MenuManager>()
             .FromComponentInHierarchy()
