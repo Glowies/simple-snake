@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 public class GameManager : MonoBehaviour, IGameManager
 {
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     private void Awake()
     {
+        EnhancedTouchSupport.Enable();
         IsRunning = false;
     }
 

@@ -57,13 +57,6 @@ public class Button3D : MonoBehaviour
     {
         int result = 0;
 
-        if (Mouse.current.leftButton.wasPressedThisFrame &&
-            IsPositionOnCollider(Mouse.current.position.ReadValue()))
-        {
-            result++;
-        }
-
-        
         foreach (Touch touch in Touch.activeTouches)
         {
             if (touch.phase == TouchPhase.Began &&
