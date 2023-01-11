@@ -115,7 +115,7 @@ MonoBehaviour:
   Direction: {x: 0, y: 0, z: 1}
   IsMoving: 1
   DeathBlinkFrequency: 1.32
-  InputBufferLimit: 3
+  InputBufferLimit: 2
   SnakeBodyMover: {fileID: 825249416}
 --- !u!114 &825249416
 MonoBehaviour:
