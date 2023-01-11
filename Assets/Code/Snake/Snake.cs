@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 using Zenject;
 
 public class Snake : MonoBehaviour
@@ -11,6 +12,7 @@ public class Snake : MonoBehaviour
     public Vector3 Direction = Vector3.right;
     public bool IsMoving = true;
     public float DeathBlinkFrequency = 2f;
+    public int InputBufferLimit = 3;
     public SnakeBodyMover SnakeBodyMover;
 
     [Inject]
@@ -22,6 +24,7 @@ public class Snake : MonoBehaviour
     private int _startLength;
     private float _startSpeed;
     private Vector3 _startDirection;
+    private Queue<UnityAction> _inputBuffer;
 
     private void Awake()
     {
@@ -30,13 +33,28 @@ public class Snake : MonoBehaviour
         _startLength = Length;
         _startSpeed = Speed;
         _startDirection = Direction;
+
+        // Initialize Input Buffer
+        _inputBuffer = new();
     }
 
-    public void TurnLeft()
+    private void EnqueueInput(UnityAction input)
+    {
+        if(_inputBuffer.Count >= InputBufferLimit)
+        {
+            return;
+        }
+
+        _inputBuffer.Enqueue(input);
+    }
+
+    public void PerformTurnLeft()
     {
         Direction = Quaternion.AngleAxis(-90, Vector3.up) * Direction;
         _scoreService.RegisterTurn();
     }
+
+    public void TurnLeft() => EnqueueInput(PerformTurnLeft);
 
     public void TurnLeft(InputAction.CallbackContext context = default)
     {
@@ -48,11 +66,13 @@ public class Snake : MonoBehaviour
         TurnLeft();
     }
 
-    public void TurnRight()
+    public void PerformTurnRight()
     {
         Direction = Quaternion.AngleAxis(90, Vector3.up) * Direction;
         _scoreService.RegisterTurn();
     }
+    
+    public void TurnRight() => EnqueueInput(PerformTurnRight);
 
     public void TurnRight(InputAction.CallbackContext context = default)
     {
@@ -93,6 +113,13 @@ public class Snake : MonoBehaviour
     {
         while(IsMoving)
         {
+            // Perform turns in input buffer
+            if(_inputBuffer.Count > 0)
+            {
+                _inputBuffer.Dequeue().Invoke();
+            }
+
+            // Move the snake
             transform.localPosition += Direction;
             SnakeBodyMover.UpdateBodyTransforms(this);
             yield return new WaitForSeconds(1f/Speed);
