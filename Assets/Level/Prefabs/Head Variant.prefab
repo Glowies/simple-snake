@@ -111,10 +111,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Length: 5
-  Speed: 12
+  Speed: 16
   Direction: {x: 0, y: 0, z: 1}
   IsMoving: 1
   DeathBlinkFrequency: 1.32
+  InputBufferLimit: 3
   SnakeBodyMover: {fileID: 825249416}
 --- !u!114 &825249416
 MonoBehaviour:
