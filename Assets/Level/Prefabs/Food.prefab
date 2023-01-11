@@ -99,6 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f33cad440fe07441cb9212155ba521b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FlareDuration: 0.24
+  FlareEmission: {r: 512, g: 512, b: 512, a: 1}
 --- !u!1001 &91514653412838894
 PrefabInstance:
   m_ObjectHideFlags: 0
