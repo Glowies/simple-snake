@@ -5,6 +5,7 @@ using UnityEngine;
 public class BlockAnimator : MonoBehaviour
 {
     public Vector3 Direction;
+    public bool RandomDirection;
     public Vector3 OriginOffset;
     public float AnimationSpeed = 4f;
     public float SpreadFactor = 2f;
@@ -14,8 +15,15 @@ public class BlockAnimator : MonoBehaviour
     private List<Vector3> _startPositions;
     private List<float> _tOffsets;
 
-    private void Awake()
+    private void OnEnable()
     {
+        if(RandomDirection)
+        {
+            float angle = Random.value * 360f;
+            var rotation = Quaternion.Euler(0, angle, 0);
+            Direction = rotation * Direction;
+        }
+
         PreprocessChildren();
     }
 
