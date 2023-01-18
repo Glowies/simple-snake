@@ -15,6 +15,11 @@ public class BlockAnimator : MonoBehaviour
     private List<Vector3> _startPositions;
     private List<float> _tOffsets;
 
+    private void Awake()
+    {
+        RegisterStartState();
+    }
+
     private void OnEnable()
     {
         if(RandomDirection)
@@ -27,20 +32,27 @@ public class BlockAnimator : MonoBehaviour
         PreprocessChildren();
     }
 
-    private void PreprocessChildren()
+    private void RegisterStartState()
     {
         _children = new();
-        _tOffsets = new();
         _startPositions = new();
 
-        var tMax = float.NegativeInfinity;
-        var tMin = float.PositiveInfinity;
         foreach(Transform child in transform)
         {
             // Add children and positions to list
             _children.Add(child);
             _startPositions.Add(child.localPosition);
+        }
+    }
 
+    private void PreprocessChildren()
+    {
+        _tOffsets = new();
+
+        var tMax = float.NegativeInfinity;
+        var tMin = float.PositiveInfinity;
+        foreach(Transform child in transform)
+        {
             // Calculate offset
             var tOffset = Vector3.Dot(child.localPosition, Direction);
 
