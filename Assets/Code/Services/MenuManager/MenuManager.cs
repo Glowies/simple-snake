@@ -8,6 +8,8 @@ public class MenuManager : MonoBehaviour, IMenuManager
     public MenuController MainMenu;
     public MenuThumbnail Thumbnails;
     public CameraAnimator CameraAnimator;
+    public HideAnimator SubParentLeft;
+    public HideAnimator SubParentRight;
 
     private MenuController[] _menus;
     private MenuController _openMenu;
@@ -68,6 +70,17 @@ public class MenuManager : MonoBehaviour, IMenuManager
         else
         {
             CameraAnimator.ZoomOut();
+        }
+
+        if(_openMenu.DoubleArrow)
+        {
+            SubParentLeft.Show();
+            SubParentRight.Show();
+        }
+        else
+        {
+            SubParentLeft.Hide();
+            SubParentRight.Hide();
         }
 
         UpdateThumbnails();

@@ -63,6 +63,7 @@ public class Button3D : MonoBehaviour
                 IsPositionOnCollider(touch.screenPosition))
             {
                 result++;
+                break;
             }
         }
 

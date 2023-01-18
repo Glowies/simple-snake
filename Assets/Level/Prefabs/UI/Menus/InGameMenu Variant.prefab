@@ -387,10 +387,15 @@ PrefabInstance:
       propertyPath: ZoomedIn
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2058114331871006953, guid: 56bd051e892fe4b15ae1b51a72b8c387,
+        type: 3}
+      propertyPath: DoubleArrow
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2058114331871006955, guid: 56bd051e892fe4b15ae1b51a72b8c387,
         type: 3}
       propertyPath: m_Name
-      value: InGameMenu
+      value: InGameMenu Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2058114331871006955, guid: 56bd051e892fe4b15ae1b51a72b8c387,
         type: 3}
