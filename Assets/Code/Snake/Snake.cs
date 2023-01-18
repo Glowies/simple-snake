@@ -34,8 +34,7 @@ public class Snake : MonoBehaviour
         _startSpeed = Speed;
         _startDirection = Direction;
 
-        // Initialize Input Buffer
-        _inputBuffer = new();
+        Reset();
     }
 
     private void EnqueueInput(UnityAction input)
@@ -188,6 +187,9 @@ public class Snake : MonoBehaviour
     
     public void Reset()
     {
+        // Initialize Input Buffer
+        _inputBuffer = new();
+        
         transform.localPosition = _startPosition;
         Length = _startLength;
         Speed = _startSpeed;
