@@ -9,6 +9,10 @@ public class SnakeInstaller : MonoInstaller
             .To<GridService>()
             .AsSingle();
 
+        Container.Bind<ILongTermStorage>()
+            .To<PlayerPrefsStorage>()
+            .AsSingle(); 
+
         Container.Bind<IScoreService>()
             .To<ScoreService>()
             .FromComponentInHierarchy()
