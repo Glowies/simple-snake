@@ -8,10 +8,28 @@ public class ScoreService : MonoBehaviour, IScoreService
     public TextMeshProUGUI LengthText;
     public TextMeshProUGUI ScoreText;
     public TextMeshProUGUI ComboText;
-    public int Length { get; set; } = 0;
-    public int Score { get; private set; } = 0;
-    public int Combo { get; private set; } = 0;
-    public int MaxCombo { get; private set; } = 0;
+
+    public SnakeStatistics Statistics { get; private set; } = new SnakeStatistics();
+
+    public int Length { 
+        get => Statistics.Length;
+        set => Statistics.Length = value;
+    }
+
+    public int Score { 
+        get => Statistics.Score;
+        private set => Statistics.Score = value;
+    }
+
+    public int Combo { 
+        get => Statistics.Combo;
+        private set => Statistics.Combo = value;
+    }
+
+    public int MaxCombo { 
+        get => Statistics.MaxCombo;
+        private set => Statistics.MaxCombo = value;
+    }
 
     private int _turnCount = 0;
 
