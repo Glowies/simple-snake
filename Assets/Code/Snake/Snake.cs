@@ -34,8 +34,7 @@ public class Snake : MonoBehaviour
         _startSpeed = Speed;
         _startDirection = Direction;
 
-        // Initialize Input Buffer
-        _inputBuffer = new();
+        Reset();
     }
 
     private void EnqueueInput(UnityAction input)
@@ -48,13 +47,21 @@ public class Snake : MonoBehaviour
         _inputBuffer.Enqueue(input);
     }
 
-    public void PerformTurnLeft()
+    private void PerformTurn(float eulerAngle)
     {
-        Direction = Quaternion.AngleAxis(-90, Vector3.up) * Direction;
+        // Turn snake
+        var rotation = Quaternion.AngleAxis(eulerAngle, Vector3.up);
+        Direction = rotation * Direction;
+
+        // Register turn
         _scoreService.RegisterTurn();
     }
 
+    public void PerformTurnLeft() => PerformTurn(-90);
+    public void PerformTurnRight() => PerformTurn(90);
+
     public void TurnLeft() => EnqueueInput(PerformTurnLeft);
+    public void TurnRight() => EnqueueInput(PerformTurnRight);
 
     public void TurnLeft(InputAction.CallbackContext context = default)
     {
@@ -65,14 +72,6 @@ public class Snake : MonoBehaviour
 
         TurnLeft();
     }
-
-    public void PerformTurnRight()
-    {
-        Direction = Quaternion.AngleAxis(90, Vector3.up) * Direction;
-        _scoreService.RegisterTurn();
-    }
-    
-    public void TurnRight() => EnqueueInput(PerformTurnRight);
 
     public void TurnRight(InputAction.CallbackContext context = default)
     {
@@ -188,6 +187,9 @@ public class Snake : MonoBehaviour
     
     public void Reset()
     {
+        // Initialize Input Buffer
+        _inputBuffer = new();
+        
         transform.localPosition = _startPosition;
         Length = _startLength;
         Speed = _startSpeed;

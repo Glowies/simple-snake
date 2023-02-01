@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Direction: {x: -1, y: 0, z: -0.2}
+  RandomDirection: 1
   OriginOffset: {x: 0, y: -0.5, z: 0}
   AnimationSpeed: 4
   SpreadFactor: 1.2

@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class MenuController : MonoBehaviour
 {
     public bool ZoomedIn;
+    public bool DoubleArrow;
 
     public int ActiveFace {
         get
