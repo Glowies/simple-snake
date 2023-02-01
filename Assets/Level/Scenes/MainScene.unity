@@ -2411,6 +2411,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5581676390739136339, guid: e4657d5b01eac41c09482f9962852a2e,
+        type: 3}
+      propertyPath: LTSKey
+      value: Settings_Mute
+      objectReference: {fileID: 0}
     - target: {fileID: 5768424935787386318, guid: e4657d5b01eac41c09482f9962852a2e,
         type: 3}
       propertyPath: m_LocalPosition.z

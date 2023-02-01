@@ -16,6 +16,12 @@ public class PlayerPrefsStorage : ILongTermStorage
         PlayerPrefs.Save();
     }
 
+    public bool GetBool(string key)
+    {
+        var value = GetInt(key);
+        return value > 0;
+    }
+
     public float GetFloat(string key) => PlayerPrefs.GetFloat(key);
 
     public int GetInt(string key) => PlayerPrefs.GetInt(key);
@@ -23,6 +29,11 @@ public class PlayerPrefsStorage : ILongTermStorage
     public string GetString(string key) => PlayerPrefs.GetString(key);
 
     public bool HasKey(string key) => PlayerPrefs.HasKey(key);
+
+    public void SetBool(string key, bool value)
+    {
+        SetInt(key, value ? 1 : 0);
+    }
 
     public void SetFloat(string key, float value)
     {
