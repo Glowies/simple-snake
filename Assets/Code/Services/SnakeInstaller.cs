@@ -18,6 +18,10 @@ public class SnakeInstaller : MonoInstaller
             .FromComponentInHierarchy()
             .AsSingle();
 
+        Container.Bind<IHighScoreService>()
+            .To<HighScoreService>()
+            .AsSingle();
+
         Container.Bind<IGameManager>()
             .To<GameManager>()
             .FromComponentInHierarchy()

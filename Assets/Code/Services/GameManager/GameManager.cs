@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour, IGameManager
     public MenuController PreEndMenu;
 
     [Zenject.Inject]
+    private IHighScoreService _highScoreService;
+
+    [Zenject.Inject]
     private IScoreService _scoreService;
 
     [Zenject.Inject]
@@ -65,6 +68,7 @@ public class GameManager : MonoBehaviour, IGameManager
     public void EndGame()
     {
         SnakeHead.Kill();
+        _highScoreService.RecordCurrentScore();
         _menuManager.OpenMenu(PreEndMenu);
         IsRunning = false;
     }
