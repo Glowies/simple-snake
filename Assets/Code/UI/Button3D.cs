@@ -22,6 +22,8 @@ public class Button3D : MonoBehaviour
     private Vector3 _startPosition;
     [Inject]
     private IGameManager _gameManager;
+    [Inject]
+    private IVibratorService _vibratorService;
 
     private void Awake()
     {
@@ -34,17 +36,10 @@ public class Button3D : MonoBehaviour
 
     void Update()
     {
-        var onTouchEvent = GetOnTouchedEvent();
-
         var touchCount = TouchCount();
-        for(int i=0; i<touchCount; i++)
-        {
-            onTouchEvent.Invoke();
-        }
-
         if(touchCount > 0)
         {
-           PlayBumpAnimation();
+            TriggerOnce();
         }
     }
 
@@ -85,6 +80,7 @@ public class Button3D : MonoBehaviour
     {
         GetOnTouchedEvent().Invoke();
         PlayBumpAnimation();
+        _vibratorService.Vibrate();
     }
 
     public UnityEvent GetOnTouchedEvent()
