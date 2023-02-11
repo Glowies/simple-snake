@@ -42,18 +42,8 @@ public class SnakeInstaller : MonoInstaller
         //////////////////////////////////
         // Platform Specific Bindings
         //////////////////////////////////
-        if (Application.platform == RuntimePlatform.Android ||
-            Application.platform == RuntimePlatform.IPhonePlayer)
-        {
-            Container.Bind<IVibratorService>()
-                .To<VibratorService>()
+        Container.Bind<IVibratorService>()
+                .To<NiceVibratorService>()
                 .AsSingle();
-        }
-        else
-        {
-            Container.Bind<IVibratorService>()
-                .To<DummyVibratorService>()
-                .AsSingle();
-        }
     }
 }
